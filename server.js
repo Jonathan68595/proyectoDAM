@@ -12,8 +12,6 @@ app.use(express.json());
 
 // Conectar a MongoDB Atlas
 mongoose.connect('mongodb+srv://jduenas13:123@cluster0.gvlf5.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
 }).then(() => console.log('Conectado a MongoDB Atlas'))
   .catch((error) => console.error('Error al conectar a MongoDB:', error));
 
