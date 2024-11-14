@@ -5,6 +5,9 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000'; // Cambia esto a la URL de tu backend en producción
 
+
+
+ //prueba
 const MapScreen = () => {
   const [locations, setLocations] = useState([]);
 
