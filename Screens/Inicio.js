@@ -2,26 +2,30 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 // Importamos las pantallas directamente desde la misma carpeta
+import BuscarScreen from './Search';
 import FavoritosScreen from './Favoritos';
 import CitasScreen from './Dates';
 import NotificacionesScreen from './Notifications';
-import PerfilScreen from './Profil'; // Corrección aquí
+import PerfilScreen from './Profile';
+import LoginScreen from './Login'; // Importa LoginScreen
+import SignUpScreen from './SignUp'; // Importa SignUpScreen
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function BottomTabBar() {
     return (
-        <View style={{ flex: 1 }}>
-            <Tab.Navigator>
-                <Tab.Screen name="Buscar" component={AppContent} />
-                <Tab.Screen name="Favoritos" component={FavoritosScreen} />
-                <Tab.Screen name="Citas" component={CitasScreen} />
-                <Tab.Screen name="Notificaciones" component={NotificacionesScreen} />
-                <Tab.Screen name="Perfil" component={PerfilScreen} />
-            </Tab.Navigator>
-        </View>
+        <Tab.Navigator>
+            <Tab.Screen name="Inicio" component={AppContent} />
+            <Tab.Screen name="Buscar" component={BuscarScreen} />
+            <Tab.Screen name="Favoritos" component={FavoritosScreen} />
+            <Tab.Screen name="Citas" component={CitasScreen} />
+            <Tab.Screen name="Notificaciones" component={NotificacionesScreen} />
+            <Tab.Screen name="Perfil" component={PerfilScreen} />
+        </Tab.Navigator>
     );
 }
 
@@ -58,10 +62,14 @@ function AppContent() {
     );
 }
 
-function App() {
+function Inicio() {
     return (
         <NavigationContainer>
-            <BottomTabBar />
+            <Stack.Navigator initialRouteName="AppContent">
+                <Stack.Screen name="AppContent" component={BottomTabBar} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
@@ -118,4 +126,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default Inicio;

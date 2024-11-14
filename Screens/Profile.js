@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from './Login';
 
 const ProfilScreen = ({ navigation }) => {
   const handleLogin = () => {
