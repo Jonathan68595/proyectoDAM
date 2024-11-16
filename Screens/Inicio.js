@@ -3,28 +3,64 @@ import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
 // Importamos las pantallas directamente desde la misma carpeta
-import BuscarScreen from './Search';
 import FavoritosScreen from './Favoritos';
 import CitasScreen from './Dates';
 import NotificacionesScreen from './Notifications';
 import PerfilScreen from './Profile';
 import LoginScreen from './Login'; // Importa LoginScreen
 import SignUpScreen from './SignUp'; // Importa SignUpScreen
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Colors from './../constants/Colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function BottomTabBar() {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Inicio" component={AppContent} />
-            <Tab.Screen name="Buscar" component={BuscarScreen} />
-            <Tab.Screen name="Favoritos" component={FavoritosScreen} />
-            <Tab.Screen name="Citas" component={CitasScreen} />
-            <Tab.Screen name="Notificaciones" component={NotificacionesScreen} />
-            <Tab.Screen name="Perfil" component={PerfilScreen} />
+        <Tab.Navigator
+            screenOptions={{
+                tabBarActiveTintColor:Colors.primary
+            }}
+        >
+        
+            <Tab.Screen name="Inicio" component={AppContent} 
+                options={{
+                    title: 'Inicio', 
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
+                }}
+            />
+            <Tab.Screen name="Favoritos" component={FavoritosScreen} 
+                options={{
+                    title: 'Favoritos', 
+                    headerShown: false,
+                    tabBarIcon:({color}) => <MaterialCommunityIcons name="tag-heart-outline" size={24} color={color} />
+                }}
+            />
+            <Tab.Screen name="Citas" component={CitasScreen} 
+                options={{
+                    title: 'Citas', 
+                    headerShown: false,
+                    tabBarIcon:({color}) => <AntDesign name="calendar" size={24} color={color}/>
+                }}
+            />
+            <Tab.Screen name="Mensajes" component={NotificacionesScreen} 
+                options={{
+                    title: 'Mensajes', 
+                    headerShown: false,
+                    tabBarIcon:({color}) => <AntDesign name="message1" size={24} color={color} />
+                }}
+            />
+            <Tab.Screen name="Perfil" component={PerfilScreen} 
+                options={{
+                    title: 'Perfil', 
+                    headerShown: false,
+                    tabBarIcon:({color}) => <AntDesign name="user" size={24}  color={color} />
+                }}
+            />
         </Tab.Navigator>
     );
 }
@@ -36,9 +72,10 @@ function AppContent() {
     const [verticalItems, setVerticalItems] = React.useState(["Recuadro 1", "Recuadro 2", "Recuadro 3"]);
 
     return (
+
         <View style={styles.container}>
             <View style={styles.searchBar}>
-                <TextInput style={styles.searchInput} placeholder="Buscar..." />
+                <TextInput style={styles.searchInput} placeholder="Encuentra un veterinario" />
             </View>
 
             <ScrollView style={styles.content}>
@@ -65,7 +102,15 @@ function AppContent() {
 function Inicio() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="AppContent">
+            <Stack.Navigator initialRouteName="AppContent"
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: Colors.primary,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleAlign: 'center',
+                    }}
+                >
                 <Stack.Screen name="AppContent" component={BottomTabBar} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
@@ -77,16 +122,26 @@ function Inicio() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f6f0ff',
     },
     searchBar: {
-        padding: 10,
-        backgroundColor: '#f1f1f1',
+        flexDirection: 'row',  // Esto coloca el ícono y el input en fila
+        alignItems: 'center',  // Centra el contenido verticalmente
+        padding: 5,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        margin: 10,
+        borderColor: "#E0E0E0",
+        shadowColor: '#2C3E50',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 5,  // Sombra en Android
+
     },
     searchInput: {
         height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
+
         paddingLeft: 8,
     },
     content: {
@@ -101,8 +156,9 @@ const styles = StyleSheet.create({
     item: {
         padding: 10,
         margin: 5,
-        borderColor: '#ccc',
+        borderColor: '#2C3E50',
         borderWidth: 1,
+        borderRadius: 10,
     },
     bottomIcons: {
         position: 'absolute',

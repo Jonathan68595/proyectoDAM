@@ -10,17 +10,15 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
-<<<<<<< HEAD
+    "@expo/vector-icons": "^14.0.4",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@google-cloud/local-auth": "^2.1.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^2.9.0",
     "@react-navigation/bottom-tabs": "^7.0.2",
     "@react-navigation/native": "^7.0.1",
     "@react-navigation/stack": "^7.0.1",
-=======
-    "@fullcalendar/core": "^6.1.15",
-    "@fullcalendar/daygrid": "^6.1.15",
-    "@google-cloud/local-auth": "^2.1.0",
->>>>>>> origin/main
     "@types/react": "~18.2.79",
     "axios": "^1.7.7",
     "cors": "^2.8.5",

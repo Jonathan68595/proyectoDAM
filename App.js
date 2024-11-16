@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import axios from 'axios';
+
 import Inicio from './Screens/Inicio';
 
-<<<<<<< HEAD
 export default function App() {
-  return <Inicio />
+  return <Inicio />;
 }
-=======
-const API_URL = 'http://localhost:5000'; // Cambia esto a la URL de tu backend en producción
 
-
-
- //prueba
-const MapScreen = () => {
+// Exportar `MapScreen` de forma nombrada
+export const MapScreen = () => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
@@ -54,6 +53,3 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { width: '100%', height: '100%' },
 });
-
-export default MapScreen;
->>>>>>> origin/main
