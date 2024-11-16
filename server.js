@@ -96,4 +96,34 @@ app.post('/login', async (req, res) => {
 // Inicia el servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+<<<<<<< HEAD
 });
+=======
+});
+
+app.post('/events', async (req, res) => {
+  const { title, start, end, userId, vetId, description } = req.body;
+  const event = new Event({ title, start, end, userId, vetId, description });
+  try {
+    await event.save();
+    res.status(201).send(event);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+app.get('/events', async (req, res) => {
+  const { userId, vetId } = req.query;
+
+  try {
+    const query = {};
+    if (userId) query.userId = userId;
+    if (vetId) query.vetId = vetId;
+
+    const events = await Event.find(query);
+    res.send(events);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+>>>>>>> origin/main

@@ -1,0 +1,35 @@
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      selectable: true,
+      events: window.initialEvents || [], // Cargar eventos iniciales
+  
+      dateClick: function(info) {
+        const title = prompt("Título de la cita:");
+        const description = prompt("Descripción de la cita:");
+        if (title) {
+          const newEvent = {
+            title,
+            description,
+            start: info.dateStr,
+            end: info.dateStr,
+            userId: 'USUARIO_ID', // Usa el ID de usuario o veterinario adecuado
+            vetId: 'VETERINARIO_ID'
+          };
+  
+          fetch('http://localhost:5000/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newEvent)
+          })
+          .then(response => response.json())
+          .then(event => calendar.addEvent(event))
+          .catch(error => alert("Error al crear evento: " + error));
+        }
+      }
+    });
+  
+    calendar.render();
+  });
+  
