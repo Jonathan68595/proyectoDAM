@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, Text, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import axios from '../axiosConfig'; // Importa la configuración de Axios
 
 const LoginScreen = ({ navigation }) => {
   const [correo, setCorreo] = useState('');
@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post('/login', { // Usa la instancia configurada de Axios
         correo,
         contraseña
       });

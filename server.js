@@ -2,22 +2,48 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const Location = require('./Location'); // Importa el modelo Location
-const User = require('./User'); // Importa el modelo User
+//const Location = require('./Location'); // Importa el modelo Location
+const User = require('./Usuarios'); // Importa el modelo User
 
 const app = express();
 const PORT = 5000;
+const uri = "mongodb+srv://jduenas13:123@cluster0.gvlf5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+// Conectar a MongoDB Atlas
+mongoose.connect(uri).then(
+    () => console.log('Conectado a MongoDB Atlas'))
+    .catch((error) => console.error('Error al conectar a MongoDB:', error));
+
+// Definir el cliente de MongoDB
+const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });   
+
+async function run() {
+  try {
+    // Conectamos al servidor de MongoDB
+    await client.connect();
+    // Enviamos un ping al servidor de MongoDB
+    await client.db("VetExpert").command({ ping: 1 });
+    console.log("Ping exitoso a mongodb, estás oficialmente conectado a la base de datos");
+  } finally {
+    // En caso de error, cerramos la conexión
+    await client.close();
+  }
+}
+run().catch(console.dir);
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Conectar a MongoDB Atlas
-mongoose.connect('mongodb+srv://jduenas13:123@cluster0.gvlf5.mongodb.net/', {
-}).then(() => console.log('Conectado a MongoDB Atlas'))
-  .catch((error) => console.error('Error al conectar a MongoDB:', error));
-
-// Ruta para agregar una ubicación
+/*// Ruta para agregar una ubicación
 app.post('/locations', async (req, res) => {
   const location = new Location(req.body);
   try {
@@ -26,7 +52,7 @@ app.post('/locations', async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-});
+});*/
 
 // Ruta para obtener todas las ubicaciones
 app.get('/locations', async (req, res) => {
@@ -39,7 +65,7 @@ app.get('/locations', async (req, res) => {
 });
 
 // Ruta para registrar un usuario
-app.post('/signup', async (req, res) => {
+app.post('/Usuarios', async (req, res) => {
   const { nombre, correo, telefono, contraseña, numeroDeMascotas, nombresDeMascotas } = req.body;
 
   // Validar datos
@@ -95,35 +121,5 @@ app.post('/login', async (req, res) => {
 
 // Inicia el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-<<<<<<< HEAD
+  console.log(`Servidor corriendo en: ${PORT}`);
 });
-=======
-});
-
-app.post('/events', async (req, res) => {
-  const { title, start, end, userId, vetId, description } = req.body;
-  const event = new Event({ title, start, end, userId, vetId, description });
-  try {
-    await event.save();
-    res.status(201).send(event);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
-
-app.get('/events', async (req, res) => {
-  const { userId, vetId } = req.query;
-
-  try {
-    const query = {};
-    if (userId) query.userId = userId;
-    if (vetId) query.vetId = vetId;
-
-    const events = await Event.find(query);
-    res.send(events);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
->>>>>>> origin/main

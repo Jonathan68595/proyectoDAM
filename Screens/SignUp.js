@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, Text, ScrollView } from 'react-native';
-import axios from 'axios';
+import axios from '../axiosConfig'; // Importa la configuración de Axios
 import { Picker } from '@react-native-picker/picker';
 
 const SignUpScreen = ({ navigation }) => {
@@ -18,7 +18,7 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/signup', {
+      const response = await axios.post('/signup', { // Usa la instancia configurada de Axios
         nombre,
         correo,
         telefono,
